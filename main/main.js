@@ -1,6 +1,6 @@
 // [0] : "unit에 표시될 이름" | [1] : "자신폴더/이름.html"   // 단 모든 project는 Project group 폴더에 삽입
 const unitsList = [
-    ["words", "words/firlog/firlog.html"],
+    ["words", "words/main/main.html"],
     ["스케줄", "schedule/main.html"],
     ["코돈추론", "codon/main.html"],
     ["코돈 test", "tempt/test.html"],
@@ -38,4 +38,5 @@ search.addEventListener("input", function () {
         }
     });
 });
+
 
