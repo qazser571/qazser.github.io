@@ -1,0 +1,524 @@
+/* ----- oklch(lightness chroma hue) ----- */
+:root{
+    --GNB-height: 64px;
+    --global-side-gap: 150px;
+    --unit-height: 26px;
+    --unit-icon-width: 22px;
+    --unit-hover-bgc: oklch(96.731% 0.01543 270.001);
+    --btn-border-color-Basic: #5f5f5f;
+    --btn-border-color-G-aff: #148700;
+    --btn-border-color-B-aff: #0f0095;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #000;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+button {
+    cursor: pointer;
+    background-color: #fff;
+    font-size: 14px;
+}
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@keyframes dialog-pop {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% - 12px));
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+@font-face {
+    font-family: 'HancomYunGothic740';
+    src: url('../fonts/HancomYunGothic740.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AstaSans';
+    src: url('../fonts/AstaSans-VariableFont.ttf') format('truetype');
+    font-weight: 300 800;
+    font-style: normal;
+}
+.tooltip{
+    display: inline-block;
+    max-width: 50px;
+    padding: 2px 4px;
+    font-size: 10px;
+    background-color: #eee;
+    color: #444;
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.05s ease-in;
+    position: fixed;
+    z-index: 9999;
+    text-align: center;
+}
+.tooltip.show{
+    opacity: 1;
+}
+
+
+
+
+body{
+    width: 100%;
+    height: 100svh;
+    padding-top: var(--GNB-height);
+    font-family: 'HancomYunGothic740', Arial, sans-serif;
+    font-size: 14px;
+}
+#GNB{
+    width: 100%;
+    height: var(--GNB-height);
+    padding: 0px var(--global-side-gap);
+    box-shadow: 0 0 2px #000;
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    background-color: #fff;
+}
+#GNB-left{
+    width: 200px;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+#GNB-right{
+    flex: 1;
+    height: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    background-color: #fff;
+}
+#container{
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    overflow-y: auto;
+}
+#main-content-area{
+    width: 100%;
+    z-index: 0;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+
+
+
+
+/* --------------- GNB --------------- */
+#GNB-right > div{
+    width: 160px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    background-color: #fff;
+}
+#GNB-right > div > span{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: #fff;
+    z-index: 10;
+    cursor: pointer;
+}
+.LNB{
+    width: 100%;
+    height: auto;
+    padding: 14px 0px 16px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid #000;
+    border-top: none;
+    border-radius: 0px 0px 8px 8px;
+    z-index: 0;
+}
+.LNB > div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+#endict{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+#endict > img{
+    width: 16px;
+    height: 16px;
+}
+#wset-creat{
+    cursor: pointer;
+}
+
+
+
+/* --------------- folder-hub --------------- */
+#folder-hub{
+    width: 460px;
+    min-height: 700px;
+    padding: 22px 14px 10px var(--global-side-gap);
+    border-right: 1px solid #ccc;
+}
+#fh-header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: default;
+    margin-bottom: 10px;
+}
+#funit-create-farea-btn{
+    width: calc(var(--unit-height) - 2px);
+    height: calc(var(--unit-height) - 2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+    padding-top: 1px;
+    cursor: pointer;
+    border: 1px solid var(--btn-border-color-Basic);
+}
+#funit-create-farea-btn:hover{
+    background-color: var(--unit-hover-bgc);
+}
+
+/* --------------- folder-storage --------------- */
+#folder-storage{
+    width: 100%;
+    padding: calc(var(--unit-height)*0.5) 4px 4px 4px;
+    background-color: #fff;
+    position: relative;
+    border: 1px solid var(--btn-border-color-Basic);
+    border-radius: 4px;
+}
+#folder-area{
+    width: 100%;
+    padding: 4px 0px;
+}
+#folder-alert-area{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-50%);
+}
+#folder-alert-area > span{
+    padding: 0 6px;
+    text-align: center;
+    color: var(--btn-border-color-Basic);
+    background-color: #fff;
+    display: none;
+}
+#myset-count.show{
+    display: inline;
+}
+#fadd-alert.show{
+    display: inline;
+}
+#fedit-alert.show{
+    display: inline;
+}
+#fnull-alert-area{
+    width: 100%;
+    height: 120px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: var(--btn-border-color-Basic);
+}
+#fnull-alert-area.fnull-sit{
+    display: flex;
+}
+#folder-area-create-btn{
+    width: 100%;
+    height: 26px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid var(--btn-border-color-G-aff);
+    color: var(--btn-border-color-G-aff);
+}
+#folder-area-create-btn:hover{
+    background-color: #e5ffdf;
+}
+#folder-area-create-btn.show{
+    display: flex;
+}
+
+
+
+/* --------------- folder-unit --------------- */
+.folder-unit{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 1px;
+    margin-top: 4px;
+}
+#folder-area > .folder-unit:first-child{
+    margin-top: 0;
+}
+.funit-body{
+    width: 100%;
+    height: var(--unit-height);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 4px;
+    position: relative;
+    background: #fff;
+}
+.folder-unit.fedit-mode > .funit-body{
+    outline: 1px solid var(--btn-border-color-B-aff);
+}
+.funit-icon{
+    width: var(--unit-icon-width);
+    height: var(--unit-icon-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+.funit-icon > i{
+    cursor: pointer;
+}
+.folder-name{
+    flex: 1;
+    height: 100%;
+}
+.funit-input{
+    width: 100%;
+    height: 100%;
+    font-family: 'AstaSans', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+/* --------------- folder-unit Btns --------------- */
+.funit-subnavi{
+    display: none;
+    background-color: var(--unit-hover-bgc);
+    position: absolute;
+    top: 0px;
+    left: calc(100% - var(--unit-height));
+    border-radius: 4px;
+    overflow: hidden;
+}
+.subnavi-btn{
+    width: calc(var(--unit-height));
+    height: calc(var(--unit-height));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.funit-subnavi-inner{
+    display: none;
+    font-size: 10px;
+}
+.funit-subnavi-inner > div{
+    width: calc(var(--unit-height));
+    height: calc(var(--unit-height));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --------------- unit-wraper --------------- */
+.unit-wraper{
+    width: calc(100% - (var(--unit-icon-width) / 2));
+    max-height: 0px;
+    position: relative;
+    padding: 0 1px;
+    overflow: hidden;
+}
+
+/* --------------- funit :hover --------------- */
+
+.funit-body:hover{
+    background-color: var(--unit-hover-bgc);
+}
+.funit-body:hover .funit-subnavi{
+    display: flex;
+}
+.subnavi-btn:hover i{
+    font-size: 15px;
+    color: var(--btn-border-color-Basic);
+}
+.funit-rename-btn:hover i{
+    font-size: 11px;
+    color: #1500ff;
+}
+.funit-remove-btn:hover i{
+    font-size: 11px;
+    color: #ff2828;
+}
+.funit-create-btn:hover i{
+    font-size: 11px;
+    color: #148700;
+}
+
+/* --------------- subnavi-open --------------- */
+.folder-unit.subnavi-open>.funit-body>.funit-subnavi > .funit-subnavi-inner{
+    display: flex;
+}
+
+/* --------------- folder-open --------------- */
+.folder-unit.folder-open>.funit-body .funit-icon{
+    transform: rotate(90deg);
+}
+.folder-unit.folder-open > .unit-wraper{
+    max-height: 100000px;
+    overflow: visible;
+}
+
+/* --------------- wset-unit --------------- */
+.wset-unit{
+    width: 100%;
+    height: var(--unit-height);
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 4px;
+    padding-right: 4px;
+    margin-top: 4px;
+}
+.wset-unit:hover {
+    background-color: var(--unit-hover-bgc);
+}
+.wset-icon{
+    width: calc(var(--unit-icon-width)*1.2);
+    height: var(--unit-icon-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+.wset-name{
+    flex: 1;
+    font-family: 'AstaSans', Arial, sans-serif;
+    font-weight: 400;
+}
+
+
+
+
+/* --------------- fd-dialog --------------- */
+#folder-delete-dialog {
+    border: none;
+    padding: 0;
+    width: 420px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 12px rgba(0,0,0,0.28);
+    animation: dialog-pop 0.16s ease-out;
+}
+
+#folder-delete-dialog .dialog-content {
+    padding: 20px 20px 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+}
+
+#folder-delete-dialog .dialog-text {
+    font-size: 14px;
+    line-height: 22px;
+    white-space: pre-line;
+}
+
+#folder-delete-dialog .dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+#folder-delete-dialog button {
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #bcbcbc;
+}
+
+#dialog-confirm {
+    color: #d70000;
+    border-color: #d70000;
+}
+
+#dialog-confirm:hover {
+    background-color: #ffeaea;
+}
+
+#dialog-cancel:hover {
+    background-color: #f0f0f0;
+}
+
+#folder-delete-dialog::backdrop {
+    background: rgba(0,0,0,0.25);
+    transition: all 0.15s ease-out;
+}
+
+
+
+
+
+
+
+/* --------------- footer --------------- */
+#footer{
+    width: 100%;
+    height: 300px;
+    padding: 0px var(--global-side-gap);
+    background-color: #f5f5f5;
+    border-top: 1px solid #ccc;
+}

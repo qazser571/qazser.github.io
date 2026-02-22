@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>수능 일정 및 진행 관리</title>
+        <link rel="stylesheet" href="./styles.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="left">
+                <div class="date-dday-box">
+                    <div class="current-date"></div>
+                    <div class="dday-container">
+                        <div class="dday-title">수능</div>
+                        <div class="dday-count"></div>
+                    </div>
+                </div>
+
+                <div class="current-time-box">
+                    <span class="ampm"></span>
+                    <span class="digital-time"></span>
+                </div>
+
+                <div class="timer-status-box">
+                    <div class="timer-top-row">
+                        <div class="timer-state">쉬는중</div>
+                        <div class="timer-time">00:00:00</div>
+                    </div>
+
+                    <!-- 이 div와 그 내부 요소들을 제거했습니다. -->
+                    <!--
+                    <div class="timer-schedule-row">
+                        <div class="schedule-category"></div>
+                        <div class="schedule-task"></div>
+                    </div>
+                    -->
+
+                    <div class="timer-btn-group">
+                        <button class="btn-start">시작</button>
+                        <button class="btn-pause inactive">보류</button>
+                        <button class="btn-complete inactive">완료</button>
+                    </div>
+                </div>
+
+                <div class="analysis-box">
+                    <div class="analysis-header">
+                        <div class="analysis-title">분석</div>
+                        <div class="total-time-display"></div>
+                    </div>
+                    <div class="analysis-graph-container">
+                    </div>
+                </div>
+
+                <div class="exception-schedule-box">
+                    <div class="exception-title">예외 스케줄 작성</div>
+                    <div class="exception-input-area">
+                        <input type="text" id="exception-input" placeholder="예외 스케줄 작성"/>
+                        <button id="exception-save-btn">저장</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="today-schedule-title-text">오늘 일정</div>
+                <div class="task-list-container">
+                </div>
+            </div>
+        </div>
+
+        <script src="./script.js"></script>
+    </body>
+</html>

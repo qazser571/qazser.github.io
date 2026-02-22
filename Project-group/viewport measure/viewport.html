@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewport 픽셀 값 확인</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* 뷰포트 전체 높이를 사용합니다. */
+            margin: 0;
+            background-color: #f0f8ff; /* 연한 하늘색 배경 */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+        .value-display {
+            font-size: 1.2em; /* 값을 크게 표시 */
+            font-weight: bold;
+            color: #e74c3c; /* 눈에 띄는 색상 */
+            padding: 10px 15px;
+            border: 3px solid #e74c3c;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 5px;
+        }
+        p {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <h1>현재 뷰포트 (Viewport) 실제 픽셀 크기</h1>
+    <div class="value-display" id="viewportVW">
+        로딩 중...
+    </div>
+    <div class="value-display" id="viewportVH">
+        로딩 중...
+    </div>
+
+    <script>
+        // 뷰포트 크기를 업데이트하는 함수
+        function updateViewportSize() {
+            // window.innerWidth: 브라우저 뷰포트의 너비를 픽셀 단위로 반환합니다.
+            // window.innerHeight: 브라우저 뷰포트의 높이를 픽셀 단위로 반환합니다.
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            const displayVWElement = document.getElementById('viewportVW');
+            const displayVHElement = document.getElementById('viewportVH');
+            displayVWElement.textContent = `가로: ${viewportWidth}px (100vw)`;
+            displayVHElement.textContent = `세로: ${viewportHeight}px (100vh)`;
+        }
+
+        // 페이지가 로드되면 한 번 실행
+        document.addEventListener('DOMContentLoaded', updateViewportSize);
+
+        // 창 크기가 변경될 때마다 실행 (스마트폰 가로/세로 회전 시에도 발생)
+        window.addEventListener('resize', updateViewportSize);
+    </script>
+</body>
+</html>

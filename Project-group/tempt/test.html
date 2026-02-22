@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코돈 추론</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- 왼쪽 게임 컨트롤 영역 -->
+        <div id="game-controls">
+            <!-- 게임 설정/진행 내용과 버튼들이 포함될 메인 컨텐츠 영역 -->
+            <div id="main-game-content">
+                <!-- 설정 뷰: 게임 시작 전 보여지는 내용 -->
+                <div id="setup-view">
+                    <!-- 모드 설정 영역 -->
+                    <div class="mode-setting-section">
+                        <h3>모드 설정</h3>
+                        <div id="mode-selection-buttons" class="button-group horizontal">
+                            <button id="mode1-btn">코돈 → 아미노산</button>
+                            <button id="mode2-btn">아미노산 → 코돈</button>
+                        </div>
+                    </div>
+
+                    <!-- 학습 범위 선택 영역 -->
+                    <div id="selection-area" class="hidden"> <!-- hidden 클래스 추가 -->
+                        <h3>학습 범위 선택</h3>
+                        <button id="select-all-btn">모두 선택</button>
+                    </div>
+                </div>
+
+                <!-- 게임 뷰: 게임 진행 중 보여지는 내용 -->
+                <div id="game-view" class="hidden">
+                    <h3>현재 문제</h3>
+                    <div id="current-question"></div>
+                </div>
+                
+                <!-- 다음 문제 버튼 (main-game-content 내부에 위치) -->
+                <button id="next-question-btn" class="hidden">다음 문제</button>
+                
+                <!-- 게임 시작/중지 버튼 (main-game-content 내부에 위치하며 next-question-btn 아래) -->
+                <button id="start-game-btn" class="start-btn">학습 시작</button>
+            </div>
+            
+            <!-- 게임 종료 영역 (게임 종료 후 보임) -->
+            <div id="game-end-area" class="hidden">
+                <h3>학습 종료</h3>
+                <p id="score-display"></p>
+                <button id="retry-wrong-btn">오답 재시험</button>
+                <button id="start-over-btn">처음으로</button>
+            </div>
+
+            <!-- 코돈표 조작 버튼 그룹 (항상 보임) -->
+            <div id="persistent-toggle-buttons" class="button-group toggle-options">
+                <button id="toggle-codons" class="switch-btn">코돈 숨기기</button>
+                <button id="toggle-amino-acids" class="switch-btn">아미노산 숨기기</button>
+                <button id="toggle-amino-acid-display-mode" class="no-bg-change">표시 모드: 세린(S)</button>
+            </div>
+        </div>
+
+        <!-- 오른쪽 코돈표 영역 -->
+        <div id="codon-table-wrapper">
+            <div id="codon-table-container">
+                <!-- 코돈표가 여기에 동적으로 생성됩니다. -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

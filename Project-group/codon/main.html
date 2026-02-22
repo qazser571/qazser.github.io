@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코돈 추론</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    
+    <div id="container">
+        <div id="setting-control-area">
+            <div id="setting-area">
+                <div id="quiz-mode" class="setting-box">
+                    <button class="setting-title" type="button">
+                        학습 모드
+                    </button>
+                    <div class="setting-btns">
+                        <button id="quiz-mode1-btn" class="setting-button btn-ready">코돈 → 아미노산</button>
+                        <button id="quiz-mode2-btn" class="setting-button btn-ready">아미노산 → 코돈</button>
+                    </div>
+                </div>
+                <div id="quiz-select" class="setting-box">
+                    <button class="setting-title" type="button">
+                        학습 범위
+                    </button>
+                    <div class="setting-btns">
+                        <button id="quiz-select-all-btn" class="setting-button btn-disabled quiz-select-gauge"><span>전체 선택</span></button>
+                    </div>
+                </div>
+                <div id="quiz-start" class="setting-box">
+                    <button class="setting-title" type="button">
+                        학습 하기
+                    </button>
+                    <div class="setting-btns">
+                        <button id="quiz-start-btn" class="setting-button btn-disabled">시작</button>
+                    </div>
+                </div>
+            </div>
+            <div id="division-line"></div>
+            <div id="control-area">
+                <div id="cell-hide-mode" class="setting-box">
+                    <button class="control-area-title" type="button">
+                        표 가리기
+                    </button>
+                    <div class="setting-btns">
+                        <button id="hide-codon-btn" class="setting-button btn-ready">코돈</button>
+                        <button id="hide-amino-btn" class="setting-button btn-ready">아미노산</button>
+                    </div>
+                </div>
+                <div id="amino-writting-mode" class="setting-box">
+                    <button class="control-area-title" type="button">
+                        표기 모드
+                    </button>
+                    <div class="setting-btns">
+                        <button id="amino-mode-btn" class="setting-button btn-active">메싸이오닌(M)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- codon-table-area는 이제 그리드 컨테이너가 아니라 wrapper -->
+        <div id="codon-table-area">
+            <!-- 실제 그리드 컨테이너를 추가 -->
+            <div id="codon-grid-container">
+                <!-- 코돈표가 여기에 동적으로 생성됩니다. -->
+            </div>
+        </div>
+        <div id="quiz-report-area">
+            <div id="report-area">
+                <div id="question-box" class="report-box">
+                    <span>문제</span>
+                    <div id="current-question">UGA</div>
+                </div>
+                <div id="next-btn-box" class="report-box">
+                    <button id="next-btn" class="btn-disabled">다음</button>
+                </div>
+                <div id="percent-box" class="report-box">
+                    <div id="percent-gauge"></div>
+                </div>
+            </div>
+            <div id="exit-area">
+                <button id="exit-btn">나가기</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>

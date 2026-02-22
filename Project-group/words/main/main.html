@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./main.css">
+    <script src="https://kit.fontawesome.com/514b3bc82c.js" crossorigin="anonymous"></script>
+    <title>Words test page</title>
+</head>
+<body>
+    <div id="GNB">
+        <div id="GNB-left">mainnet</div>
+        <div id="GNB-right">    
+            <div id="link-hub">
+                <span>링크</span>
+                <div id="link-hub-LNB" class="LNB">
+                    <a id="endict" href="https://en.dict.naver.com" target="_blank" rel="noopener noreferrer">
+                        <img src="./images/naver-dict-favicon.jpg">
+                        네이버 사전
+                    </a>
+                </div>
+            </div>
+            <div id="wset-creat">
+                <span>세트 만들기</span>
+            </div>
+            <div id="storage-bar">
+                <span>보관함</span>
+                <div id="storage-bar-LNB" class="LNB">
+                    <div id="fh-open">보관함 열기</div>
+                    <div id="fh-close">보관함 접기</div>
+                </div>
+            </div>
+            <!-- <div id="bars">
+                <i class="fa-solid fa-bars"></i>
+            </div> -->
+            <!-- <div id="profile">
+
+            </div> -->
+        </div>
+    </div>
+    <div id="container">
+        <div id="main-content-area">
+            <div id="folder-hub">
+                <div id="fh-header">
+                    <span>내 보관함</span>
+                    <div id="funit-create-farea-btn" data-tooltip="보관함에 폴더 추가">
+                        <i class="fa-solid fa-folder-plus"></i>
+                    </div>
+                </div>
+                <div id="folder-storage">
+                    <div id="folder-alert-area">
+                        <span id="myset-count" class="show"></span>
+                        <span id="fadd-alert">※ 폴더를 추가할 위치를 선택하세요 ※</span>
+                        <span id="fedit-alert">※ 드래그하여 파일 위치 바꾸기 ※</span>
+                    </div>
+                    <div id="fnull-alert-area">보관함이 비어있습니다</div>
+                    <div id="folder-area" data-unitId="ROOT">
+
+
+                        <!-- <div class="folder-unit">
+                            <div class="funit-body">
+                                <div class="funit-icon">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </div>
+                                <div class="folder-name">
+                                    <input class="funit-input" type="text" value="testFolder 000" readonly>
+                                </div>
+                                <div class="funit-subnavi">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                    <div class="funit-subnavi-inner">
+                                        <i class="fa-solid fa-pen" data-tooltip="이름 변경"></i>
+                                        <i class="fa-solid fa-trash" data-tooltip="폴더 삭제"></i>
+                                        <i class="fa-solid fa-folder-plus" data-tooltip="폴더 추가"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="unit-wraper">
+                                <div class="wset-unit">
+                                    <div class="wset-icon">
+                                        <i class="fa-solid fa-inbox"></i>
+                                    </div>
+                                    <div class="wset-name">test WSET 000</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="folder-unit">
+                            <div class="funit-body">
+                                <div class="funit-icon">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </div>
+                                <div class="folder-name">
+                                    <input class="funit-input" type="text" value="testFolder 001" readonly>
+                                </div>
+                                <div class="funit-subnavi">
+                                    <div class="subnavi-btn">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </div>
+                                    <div class="funit-subnavi-inner">
+                                        <div class="funit-rename-btn" data-tooltip="이름 변경">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </div>
+                                        <div class="funit-remove-btn" data-tooltip="폴더 삭제">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </div>
+                                        <div class="funit-create-btn" data-tooltip="폴더 추가">
+                                            <i class="fa-solid fa-folder-plus"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="unit-wraper">
+
+                            </div>
+                        </div> -->
+
+
+                    </div>
+                </div>
+            </div>
+            <div id="content">
+                
+            </div>
+        </div>
+        <div id="footer"></div>
+    </div>
+
+    <!-- 폴더 삭제 확인 모달 -->
+    <dialog id="folder-delete-dialog">
+        <div class="dialog-content">
+            <div class="dialog-text"></div>
+            <div class="dialog-buttons">
+                <button id="dialog-cancel">취소</button>
+                <button id="dialog-confirm">삭제</button>
+            </div>
+        </div>
+    </dialog>
+
+    
+    
+    <script src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+:root{
+    --main-color: #ccc;
+    --gnb-height: 64px;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #000;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+button {
+    cursor: pointer;
+}
+@font-face {
+    font-family: 'HancomYunGothic740';
+    src: url('../fonts/HancomYunGothic740.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

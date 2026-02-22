@@ -1,0 +1,370 @@
+:root{
+    --standheight: 500px;
+    --standpadding: 15px;
+    --switch-active-bgc: #62aaee;
+    --switch-active-hover-bgc: rgb(85, 157, 225);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* 전체 game-container를 수직 중앙 정렬 */
+    padding: 20px;
+    background-color: #f4f7f6;
+    color: #333;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+#game-container {
+    min-width: calc(var(--standpadding)*4 + 25px + 300px + 600px);
+    display: flex;
+    gap: 25px;
+    align-items: flex-start; /* 내부 컨트롤과 표를 상단에 정렬 */
+}
+
+#game-controls {
+    height: var(--standheight);
+    width: 300px;
+    background-color: #ffffff;
+    padding: var(--standpadding);
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 섹션 간 간격 조정 */
+}
+
+#game-controls h2, #game-controls h3 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* main-game-content는 남은 공간을 차지하도록 flex-grow 설정 */
+#main-game-content {
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 내부 요소를 상단 정렬 */
+    align-items: center; /* 내부 요소를 수평 중앙 정렬 */
+    gap: 15px; /* 내부 요소 간 간격 */
+    box-sizing: border-box;
+}
+
+#setup-view, #game-view {
+    width: 100%;
+    flex-grow: 1; /* 남은 공간을 유연하게 채움 */
+    display: flex; /* 내부 요소 정렬을 위해 flex 사용 */
+    flex-direction: column;
+    align-items: center; /* 내부 컨텐츠 수평 중앙 정렬 */
+    box-sizing: border-box;
+    gap: 15px; /* 내부 요소 (문제, 버튼) 간의 간격 */
+}
+
+#setup-view {
+    justify-content: flex-start; /* 설정 뷰는 상단 정렬 */
+}
+
+#game-view {
+    justify-content: flex-start; /* 게임 뷰도 상단 정렬 (버튼은 아래로 밀려남) */
+}
+
+/* 게임 시작/중지 버튼 및 다음 문제 버튼의 공통 스타일 */
+#start-game-btn, #next-question-btn {
+    width: 200px; /* 버튼 너비 고정 */
+    margin: 0 auto; /* 수평 중앙 정렬 */
+}
+
+/* 다음 문제 버튼의 색상 */
+#next-question-btn {
+    background-color: var(--switch-active-bgc); /* 파란색 계열의 부담되지 않는 색 */
+}
+
+#next-question-btn:hover {
+    background-color: var(--switch-active-hover-bgc); /* 호버 시 색상 변경 */
+}
+
+
+#current-question {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #e74c3c;
+    text-align: center;
+    padding: 10px;
+    /* border: 2px dashed #e74c3c;*/
+    box-shadow: inset 0 0 3px 0 #e74c3c;
+    border-radius: 5px;
+    width: calc(100% - 20px); /* 패딩 고려 */
+    box-sizing: border-box;
+}
+
+#score-display {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #3498db;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.button-group.horizontal {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.button-group.horizontal button {
+    flex: 1;
+    min-width: 120px;
+}
+
+/* 일반 버튼 스타일: transform 모션 제거 */
+button {
+    padding: 12px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #6c757d;
+    color: white;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+/* button:hover {
+    background-color: #677077;
+} */
+
+button.active {
+    background-color: #3599f7;
+}
+
+/* 모드 선택 버튼의 글씨 크기 조정 및 초기 상태 */
+#mode-selection-buttons button {
+    font-size: 0.9em;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: pointer;
+}
+#mode-selection-buttons button:hover {
+    background-color: #cccccc;
+    transform: none;
+}
+#mode-selection-buttons button.active {
+    background-color: var(--switch-active-bgc); /* 수정: 변수 사용 */
+    color: white;
+    cursor: pointer;
+}
+#mode-selection-buttons button.active:hover {
+    background-color: var(--switch-active-hover-bgc); /* 수정: 변수 사용 */
+}
+
+
+button.start-btn {
+    background-color: #17cae5;
+    font-weight: bold;
+}
+button.start-btn:hover {
+    background-color: #15b2ca;
+}
+
+/* 표시 모드 버튼 (배경색 변경 없음) */
+button.no-bg-change {
+    background-color: #6c757d;
+    color: white;
+}
+/* button.no-bg-change:hover {
+    background-color: #677077;
+} */
+button.no-bg-change.active {
+    background-color: #6c757d;
+}
+
+
+/* 스위치 버튼 스타일: transform 모션 유지 */
+button.switch-btn {
+    position: relative;
+    padding-left: 20px;
+    text-align: left;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button.switch-btn:hover {
+    background-color: #cccccc;
+}
+
+button.switch-btn:active {
+    transform: translateY(0);
+}
+
+button.switch-btn::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #999999;
+    transition: background-color 0.3s ease, left 0.3s ease;
+}
+
+button.switch-btn.active {
+    background-color: #62aaee;
+    color: white;
+}
+
+button.switch-btn.active::before {
+    background-color: white;
+    left: calc(100% - 15px);
+}
+
+/* 코돈표 스타일 */
+#codon-table-wrapper {
+    max-width: 630px;
+    padding: var(--standpadding);
+    flex: 1;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center; /* 코돈표 자체를 수평 중앙 정렬 */
+    align-items: flex-start; /* 코돈표를 래퍼의 상단에 정렬 */
+}
+
+#codon-table-container {
+    width: 600px;
+    height: var(--standheight);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 0; /* gap을 0으로 설정 */
+    outline: 1px solid #ccc;
+    background-color: #ccc;
+    box-sizing: border-box;
+}
+
+.codon-block {
+    height: calc(var(--standheight) / 4);
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+}
+
+.codon-group-cell {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.1s ease, box-shadow 0.1s ease;
+    box-sizing: border-box;
+}
+
+.codon-group-cell:last-child {
+    border-bottom: none;
+}
+
+/* 선택 모드에서 선택된 셀 스타일 */
+.codon-group-cell.selected-for-game {
+    background-color: #e0f7fa;
+    box-shadow: inset 0 0 0 1px #3cd9ee;
+}
+
+/* 게임 중 정답 셀 스타일 */
+.codon-group-cell.correct-answer-bg {
+    background-color: #d4edda;
+}
+/* 게임 중 정답 셀 하이라이트 (깜빡이는 테두리) */
+.codon-group-cell.correct-answer-highlight {
+    box-shadow: inset 0 0 0 1px green; /* 초록색 테두리 */
+    animation: blink-green-shadow 0.7s infinite alternate; /* 깜빡임 애니메이션 */
+}
+/* 깜빡임 애니메이션 정의 */
+@keyframes blink-green-shadow {
+    from {
+        box-shadow: inset 0 0 0 1px green;
+    }
+    to {
+        box-shadow: inset 0 0 0 1px rgba(0, 128, 0, 0); /* 투명하게 */
+    }
+}
+
+/* 게임 중 오답 셀 스타일 */
+.codon-group-cell.incorrect-answer-bg {
+    background-color: #FFDCDC; /* 변경 전: #f8d7da */
+    box-shadow: inset 0 0 0 1px red; /* 빨간색 테두리 */
+    animation: blink-red-shadow 0.7s infinite alternate; /* 추가됨 */
+}
+/* 추가: 빨간색 깜빡임 애니메이션 정의 */
+@keyframes blink-red-shadow {
+    from {
+        box-shadow: inset 0 0 0 1px red;
+    }
+    to {
+        box-shadow: inset 0 0 0 1px rgba(255, 0, 0, 0); /* 투명하게 */
+    }
+}
+
+.codons {
+    width: auto;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: calc(100% - 2px);
+    padding: 0 5px;
+    border-right: 1px solid #eee;
+    box-sizing: border-box;
+}
+
+.codon-item {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin: 1px 0;
+    color: #555;
+    transition: opacity 0.3s ease;
+    font-size: 1.1em;
+    box-sizing: border-box;
+}
+
+.amino-acid {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    transition: opacity 0.3s ease;
+    font-size: 0.9em;
+    box-sizing: border-box;
+}
+
+/* 숨기기 클래스 */
+.hidden {
+    display: none !important;
+}
+
+.hidden-codon .codon-item {
+    opacity: 0;
+}
+
+.hidden-amino-acid .amino-acid {
+    opacity: 0;
+}
