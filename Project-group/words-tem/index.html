@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Word</title>
+</head>
+<body>
+    
+    <div id="container">
+        <div id="left-component" class="sub-component"></div>
+        <div id="main-component">
+            <div id="header">
+                <div id="view-mode">
+                    <button id="view-mode-all" data-level="all" class="active"><span class="count">0</span></button>
+                    <button id="view-mode-level0" data-level="0"><span class="count">0</span></button>
+                    <button id="view-mode-level1" data-level="1"><span class="count">0</span></button>
+                    <button id="view-mode-level2" data-level="2"><span class="count">0</span></button>
+                    <button id="view-mode-level3" data-level="3"><span class="count">0</span></button>
+                </div>
+                <div id="search">
+                    <input type="text" id="search-input" placeholder="검색">
+                </div>
+                <div id="unit-jump">
+                    <input type="number" id="unit-number-input" placeholder="번호" min="1" max="9999">
+                </div>
+            </div>
+            <div id="words-container" class="sub-component">
+                <!-- 단어 유닛들이 동적으로 생성될 위치 -->
+            </div>
+            
+        </div>
+        <div id="right-component">
+            <div id="right-inner">
+                <button id="data-load-btn">Data 로드</button>
+                <input type="file" id="file-input" accept=".txt" style="display: none;">
+                <button id="data-save-btn">Data 저장</button>
+                <button id="delete-all-btn" class="hidden">전체 삭제</button>
+            </div>
+            <div id="right-sep-line"></div>
+            <button id="edit-mode-toggle-btn">편집</button>
+        </div>
+    </div>
+
+    <div id="known-level-popup" class="hidden">
+        <div class="popup-content">
+            <div class="level-option" data-level="0"></div>
+            <div class="level-option" data-level="1"></div>
+            <div class="level-option" data-level="2"></div>
+            <div class="level-option" data-level="3"></div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
