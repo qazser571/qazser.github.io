@@ -7,7 +7,7 @@ const unitsList = [
     ["일괄 줄바꿈 도구", "change line/change line.html"],
     ["Viewport 측정", "viewport measure/viewport.html"]
 ];
-const ProjectGroupAbsolutePath = "/Project-group/"; //폴더명에 공백있으면 열때 404
+const ProjectGroupAbsolutePath = "../Project-group/"; //폴더명에 공백있으면 열때 404
 
 
 const contentsInner = document.getElementById("contents-inner");
@@ -38,3 +38,4 @@ search.addEventListener("input", function () {
         }
     });
 });
+
