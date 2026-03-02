@@ -2,6 +2,7 @@
 const unitsList = [
     ["words", "words/main/main.html"], //일시적으로 main.html로 이동.
     ["words-임시", "words-tem/index.html"],
+    ["words-임시2", "words-temp2/wordSet-list.html"],
     ["스케줄", "schedule/main.html"],
     ["코돈추론", "codon/main.html"],
     ["코돈 test", "tempt/test.html"],
@@ -39,6 +40,7 @@ search.addEventListener("input", function () {
         }
     });
 });
+
 
 
 
