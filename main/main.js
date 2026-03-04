@@ -7,6 +7,7 @@ const unitsList = [
     ["코돈추론", "codon/main.html"],
     ["코돈 test", "tempt/test.html"],
     ["일괄 줄바꿈 도구", "change line/change line.html"],
+    ["TXT 에디터", "txt-editer/txt-editer.html"],
     ["Viewport 측정", "viewport measure/viewport.html"]
 ];
 const ProjectGroupAbsolutePath = "../Project-group/"; //폴더명에 공백있으면 열때 404
@@ -40,6 +41,7 @@ search.addEventListener("input", function () {
         }
     });
 });
+
 
 
 
