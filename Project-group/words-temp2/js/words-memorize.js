@@ -11,8 +11,9 @@ const state = {
     currentIndex: 0,
     total: 0,
     startX: 0,
+    currentX: 0,
     isDragging: false,
-    setId: null   // 🔥 추가
+    setId: null
 };
 
 /* =============================
@@ -24,7 +25,6 @@ const prevBtn = document.getElementById("prev-btn");
 const nextBtn = document.getElementById("next-btn");
 const progress = document.getElementById("memorize-progress");
 const exitBtn = document.getElementById("memorize-exit-btn");
-
 
 function getLocalISOString() {
     const now = new Date();
@@ -75,7 +75,6 @@ function renderCards() {
         const wrapper = document.createElement("div");
         wrapper.className = "card-wrapper";
 
-        /* 🔥 핵심: 한 장 = 화면 */
         wrapper.style.width = "100%";
         wrapper.style.flexShrink = "0";
 
@@ -112,17 +111,14 @@ let resizeTimer;
 
 window.addEventListener("resize", () => {
 
-    /* 애니메이션 끄기 */
     contents.style.transition = "none";
 
     clearTimeout(resizeTimer);
 
     resizeTimer = setTimeout(() => {
 
-        /* 위치 즉시 보정 */
         updateView();
 
-        /* 다시 애니메이션 켜기 */
         requestAnimationFrame(() => {
             contents.style.transition = "transform 0.3s ease";
         });
@@ -168,27 +164,29 @@ nextBtn.addEventListener("click", goNext);
 prevBtn.addEventListener("click", goPrev);
 
 /* =============================
-    DRAG (안정 버전)
+    DRAG (완전 안정 버전)
 ============================= */
 
-/******************************
-    DRAG (완전 안정 버전)
-******************************/
-
 contents.addEventListener("pointerdown", e => {
+
     state.isDragging = true;
     state.startX = e.clientX;
+    state.currentX = e.clientX;
+
     contents.style.transition = "none";
+
+    contents.setPointerCapture(e.pointerId);
 });
 
 contents.addEventListener("pointermove", e => {
 
     if (!state.isDragging) return;
 
-    const containerWidth = contents.parentElement.clientWidth;
-    let dx = e.clientX - state.startX;
+    state.currentX = e.clientX;
 
-    /* 끝에서 저항 */
+    const containerWidth = contents.parentElement.clientWidth;
+    let dx = state.currentX - state.startX;
+
     if ((state.currentIndex === 0 && dx > 0) ||
         (state.currentIndex === state.total - 1 && dx < 0)) {
         dx *= 0.3;
@@ -199,15 +197,17 @@ contents.addEventListener("pointermove", e => {
     contents.style.transform = `translateX(${base + dx}px)`;
 });
 
-contents.addEventListener("pointerup", e => {
+function handlePointerEnd(e) {
 
     if (!state.isDragging) return;
 
     state.isDragging = false;
 
+    contents.releasePointerCapture(e.pointerId);
+
     const containerWidth = contents.parentElement.clientWidth;
-    const dx = e.clientX - state.startX;
-    const threshold = containerWidth * 0.3;
+    const dx = state.currentX - state.startX;
+    const threshold = containerWidth * 0.25;
 
     contents.style.transition = "transform 0.3s ease";
 
@@ -218,10 +218,14 @@ contents.addEventListener("pointerup", e => {
     }
 
     updateView();
-});
+}
+
+contents.addEventListener("pointerup", handlePointerEnd);
+contents.addEventListener("pointercancel", handlePointerEnd);
 
 contents.addEventListener("pointerleave", () => {
     if (!state.isDragging) return;
+
     state.isDragging = false;
     contents.style.transition = "transform 0.3s ease";
     updateView();
@@ -254,9 +258,6 @@ contents.addEventListener("click", e => {
 
         updateWordState(word, "dontknow");
 
-        console.log("word:", word);
-        console.log("originalId:", word.originalId);
-
         setTimeout(goNext, goNextDelay);
     }
 
@@ -269,9 +270,6 @@ contents.addEventListener("click", e => {
         dont.classList.remove("active");
 
         updateWordState(word, "know");
-
-        console.log("word:", word);
-        console.log("originalId:", word.originalId);
 
         setTimeout(goNext, goNextDelay);
     }
@@ -297,8 +295,6 @@ function updateWordState(word, status) {
 
     targetSet.words[idx].status = status;
     targetSet.words[idx].lastStudyDate = getLocalISOString();
-
-    console.log("저장 완료", targetSet.words[idx]);
 
     saveSets(sets);
 }
