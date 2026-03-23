@@ -188,6 +188,7 @@ body {
     height: 100%;
     display: flex;
     justify-content: start;
+    touch-action: pan-y;
 }
 .card-wrapper {
     width: 100%;
