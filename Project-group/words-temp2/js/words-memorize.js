@@ -207,7 +207,7 @@ function handlePointerEnd(e) {
 
     const containerWidth = contents.parentElement.clientWidth;
     const dx = state.currentX - state.startX;
-    const threshold = containerWidth * 0.25;
+    const threshold = 180;
 
     contents.style.transition = "transform 0.3s ease";
 
