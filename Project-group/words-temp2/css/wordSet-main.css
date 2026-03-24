@@ -511,7 +511,6 @@ body {
     height: var(--word-unit-height);
     display: flex;
     align-items: center;
-    cursor: pointer;
 }
 .word-unit:not(:last-child) {
     border-bottom: 1px solid #aaa;
