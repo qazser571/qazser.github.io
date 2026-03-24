@@ -841,3 +841,51 @@ etestBtn?.addEventListener("click", async () => {
     }
 
 });
+
+function syncInput(inner, otherInner) {
+
+    inner.addEventListener("input", e => {
+
+        const input = e.target;
+
+        if (!input.classList.contains("word-spell-input") &&
+            !input.classList.contains("word-phon-input") &&
+            !input.classList.contains("word-mean-input")) return;
+
+        const wrapper = input.closest(".word-unit-wrapper");
+        if (!wrapper) return;
+
+        const id = wrapper.dataset.id;
+        const word = tempSet.words.find(w => w.id === id);
+        if (!word) return;
+
+        // 1️⃣ 데이터 반영
+        if (input.classList.contains("word-spell-input")) {
+            word.spelling = input.value;
+        } else if (input.classList.contains("word-phon-input")) {
+            word.phonetic = input.value;
+        } else if (input.classList.contains("word-mean-input")) {
+            word.meaning = input.value;
+        }
+
+        // 2️⃣ 반대쪽 동기화
+        const otherUnit = otherInner.querySelector(`.word-unit-wrapper[data-id="${id}"]`);
+        if (!otherUnit) return;
+
+        if (input.classList.contains("word-spell-input")) {
+            otherUnit.querySelector(".word-spell-input").value = word.spelling;
+        } else if (input.classList.contains("word-phon-input")) {
+            otherUnit.querySelector(".word-phon-input").value = word.phonetic;
+        } else if (input.classList.contains("word-mean-input")) {
+            otherUnit.querySelector(".word-mean-input").value = word.meaning;
+        }
+
+        applyOverlapHighlight();
+
+    });
+
+}
+
+// 양쪽에 적용
+syncInput(leftInner, rightInner);
+syncInput(rightInner, leftInner);
