@@ -14,6 +14,7 @@ const state = {
     currentX: 0,
     isDragging: false,
     hasMoved: false,
+    isPointerDown: false,
     setId: null,
     slideWidth: 0
 };
@@ -76,7 +77,7 @@ function renderCards() {
 
     contents.style.display = "flex";
     contents.style.flexWrap = "nowrap";
-    contents.style.transition = "transform 0.3s ease";
+    contents.style.transition = "none";
 
     state.slideWidth = contents.parentElement.clientWidth;
 
@@ -115,62 +116,44 @@ function renderCards() {
         const knowBtn = wrapper.querySelector(".iknow-btn");
 
         [dontBtn, knowBtn].forEach(btn => {
-            btn.addEventListener("pointerdown", e => {
-                e.stopPropagation();
-            });
+            btn.addEventListener("pointerdown", e => e.stopPropagation());
         });
 
         dontBtn.addEventListener("click", e => {
-
             if (state.hasMoved) return;
-
             e.stopPropagation();
-
             dontBtn.classList.add("active");
             knowBtn.classList.remove("active");
-
             updateWordState(word, "dontknow");
-
-            setTimeout(goNext, goNextDelay);
+            setTimeout(goNext, 200);
         });
 
         knowBtn.addEventListener("click", e => {
-
             if (state.hasMoved) return;
-
             e.stopPropagation();
-
             knowBtn.classList.add("active");
             dontBtn.classList.remove("active");
-
             updateWordState(word, "know");
-
-            setTimeout(goNext, goNextDelay);
+            setTimeout(goNext, 200);
         });
 
         const cover = wrapper.querySelector(".card-cover");
         const means = wrapper.querySelector(".card-means");
 
         cover.addEventListener("click", e => {
-
             if (state.hasMoved) return;
-
             e.stopPropagation();
             wrapper.classList.add("open");
         });
 
         means.addEventListener("click", e => {
-
             if (state.hasMoved) return;
-
             e.stopPropagation();
             wrapper.classList.remove("open");
         });
 
         contents.appendChild(wrapper);
     });
-
-    updateView();
 }
 
 /* =============================
@@ -179,11 +162,10 @@ function renderCards() {
 
 function updateView(noAnimation = false) {
 
-    if (!state.slideWidth) return;
-
     contents.style.transition = noAnimation ? "none" : "transform 0.3s ease";
 
-    contents.style.transform = `translateX(-${state.currentIndex * state.slideWidth}px)`;
+    contents.style.transform =
+        `translate3d(-${state.currentIndex * state.slideWidth}px, 0, 0)`;
 
     progress.textContent = `${state.currentIndex + 1}/${state.total}`;
 
@@ -191,14 +173,6 @@ function updateView(noAnimation = false) {
     nextBtn.classList.toggle("hide", state.currentIndex === state.total - 1);
 
     sessionStorage.setItem("memorizeIndex", state.currentIndex);
-}
-
-/* =============================
-    WIDTH 계산 함수 (추가)
-============================= */
-
-function updateSlideWidth() {
-    state.slideWidth = contents.parentElement.clientWidth;
 }
 
 function goNext() {
@@ -223,17 +197,15 @@ nextBtn.addEventListener("click", goNext);
 prevBtn.addEventListener("click", goPrev);
 
 /* =============================
-    DRAG (정상 UX 버전)
+    DRAG
 ============================= */
 
 contents.addEventListener("pointerdown", e => {
-
     state.isPointerDown = true;
     state.isDragging = false;
     state.hasMoved = false;
     state.startX = e.clientX;
     state.currentX = e.clientX;
-
     contents.style.transition = "none";
 });
 
@@ -262,7 +234,7 @@ contents.addEventListener("pointermove", e => {
 
     const base = -state.currentIndex * state.slideWidth;
 
-    contents.style.transform = `translateX(${base + move}px)`;
+    contents.style.transform = `translate3d(${base + move}px, 0, 0)`;
 });
 
 function handlePointerEnd(e) {
@@ -293,6 +265,20 @@ contents.addEventListener("pointerup", handlePointerEnd);
 contents.addEventListener("pointercancel", handlePointerEnd);
 
 /* =============================
+    RESIZE
+============================= */
+
+window.addEventListener("resize", () => {
+
+    const prevIndex = state.currentIndex;
+
+    renderCards();   // width 재계산 + 카드 재생성
+
+    state.currentIndex = prevIndex;
+    updateView(true);
+});
+
+/* =============================
     STORAGE
 ============================= */
 
@@ -305,10 +291,7 @@ function updateWordState(word, status) {
 
     const idx = targetSet.words.findIndex(w => w.id === word.originalId);
 
-    if (idx === -1) {
-        console.error("매칭 실패", word.originalId);
-        return;
-    }
+    if (idx === -1) return;
 
     targetSet.words[idx].status = status;
     targetSet.words[idx].lastStudyDate = getLocalISOString();
@@ -327,37 +310,21 @@ exitBtn.addEventListener("click", () => {
 });
 
 /* =============================
-    RESIZE 대응 (추가)
-============================= */
-
-window.addEventListener("resize", () => {
-
-    const prevIndex = state.currentIndex;
-
-    renderCards();
-
-    state.currentIndex = prevIndex;
-    updateView(true);
-});
-
-/* =============================
     INIT
 ============================= */
 
 function init() {
 
     loadData();
-    renderCards();
-
-    updateSlideWidth();
 
     const savedIndex = sessionStorage.getItem("memorizeIndex");
     if (savedIndex !== null) {
         state.currentIndex = parseInt(savedIndex, 10) || 0;
     }
 
+    renderCards();
+
     updateView(true);
 }
-
 
 init();
