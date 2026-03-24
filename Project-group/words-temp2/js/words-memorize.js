@@ -78,12 +78,14 @@ function renderCards() {
     contents.style.flexWrap = "nowrap";
     contents.style.transition = "transform 0.3s ease";
 
+    state.slideWidth = contents.parentElement.clientWidth;
+
     state.words.forEach(word => {
 
         const wrapper = document.createElement("div");
         wrapper.className = "card-wrapper";
 
-        wrapper.style.width = "100%";
+        wrapper.style.width = state.slideWidth + "px";
         wrapper.style.flexShrink = "0";
 
         wrapper.innerHTML = `
@@ -329,8 +331,13 @@ exitBtn.addEventListener("click", () => {
 ============================= */
 
 window.addEventListener("resize", () => {
-    updateSlideWidth();
-    updateView(true); // 리사이즈 시에도 튐 방지
+
+    const prevIndex = state.currentIndex;
+
+    renderCards();
+
+    state.currentIndex = prevIndex;
+    updateView(true);
 });
 
 /* =============================
