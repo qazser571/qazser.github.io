@@ -728,7 +728,7 @@ function handleResponsive() {
 /* ===================== SAVE ===================== */
 
 function collectInputs() {
-    const units = document.querySelectorAll(".word-unit-wrapper");
+    const units = leftInner.querySelectorAll(".word-unit-wrapper");
 
     units.forEach(unit => {
 
