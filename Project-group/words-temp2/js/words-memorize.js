@@ -14,7 +14,8 @@ const state = {
     currentX: 0,
     isDragging: false,
     hasMoved: false,
-    setId: null
+    setId: null,
+    slideWidth: 0
 };
 
 /* =============================
@@ -174,18 +175,28 @@ function renderCards() {
     VIEW CONTROL
 ============================= */
 
-function updateView() {
+function updateView(noAnimation = false) {
 
-    const width = contents.parentElement.clientWidth;
+    if (!state.slideWidth) return;
 
-    contents.style.transition = "transform 0.3s ease";
+    contents.style.transition = noAnimation ? "none" : "transform 0.3s ease";
 
-    contents.style.transform = `translateX(-${state.currentIndex * width}px)`;
+    contents.style.transform = `translateX(-${state.currentIndex * state.slideWidth}px)`;
 
     progress.textContent = `${state.currentIndex + 1}/${state.total}`;
 
     prevBtn.classList.toggle("hide", state.currentIndex === 0);
     nextBtn.classList.toggle("hide", state.currentIndex === state.total - 1);
+
+    sessionStorage.setItem("memorizeIndex", state.currentIndex);
+}
+
+/* =============================
+    WIDTH 계산 함수 (추가)
+============================= */
+
+function updateSlideWidth() {
+    state.slideWidth = contents.parentElement.clientWidth;
 }
 
 function goNext() {
@@ -230,7 +241,6 @@ contents.addEventListener("pointermove", e => {
 
     const dx = e.clientX - state.startX;
 
-    // 🔥 threshold 넘으면 그때부터 드래그 시작
     if (!state.isDragging && Math.abs(dx) > 8) {
         state.isDragging = true;
         state.hasMoved = true;
@@ -241,8 +251,6 @@ contents.addEventListener("pointermove", e => {
 
     state.currentX = e.clientX;
 
-    const containerWidth = contents.parentElement.clientWidth;
-
     let move = dx;
 
     if ((state.currentIndex === 0 && move > 0) ||
@@ -250,7 +258,7 @@ contents.addEventListener("pointermove", e => {
         move *= 0.3;
     }
 
-    const base = -state.currentIndex * containerWidth;
+    const base = -state.currentIndex * state.slideWidth;
 
     contents.style.transform = `translateX(${base + move}px)`;
 });
@@ -317,12 +325,32 @@ exitBtn.addEventListener("click", () => {
 });
 
 /* =============================
+    RESIZE 대응 (추가)
+============================= */
+
+window.addEventListener("resize", () => {
+    updateSlideWidth();
+    updateView(true); // 리사이즈 시에도 튐 방지
+});
+
+/* =============================
     INIT
 ============================= */
 
 function init() {
+
     loadData();
     renderCards();
+
+    updateSlideWidth();
+
+    const savedIndex = sessionStorage.getItem("memorizeIndex");
+    if (savedIndex !== null) {
+        state.currentIndex = parseInt(savedIndex, 10) || 0;
+    }
+
+    updateView(true);
 }
+
 
 init();
