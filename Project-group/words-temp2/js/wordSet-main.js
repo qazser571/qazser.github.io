@@ -125,6 +125,11 @@ function convertData(set) {
 
 function renderSections() {
 
+    const openedSections = new Set();
+    document.querySelectorAll(".words-sect.open").forEach(sect => {
+        openedSections.add(sect.dataset.sectionNum);
+    });
+
     const fragment = document.createDocumentFragment();
     const searchText = state.searchText.toLowerCase();
 
@@ -152,7 +157,13 @@ function renderSections() {
     });
 
     Object.keys(sectionMap).forEach(sectionNum => {
-        fragment.appendChild(createSectionElement(sectionNum, sectionMap[sectionNum], searchText));
+        const sectEl = createSectionElement(sectionNum, sectionMap[sectionNum], searchText);
+        
+        if (openedSections.has(sectionNum)) {
+            sectEl.classList.add("open");
+        }
+
+        fragment.appendChild(sectEl);
     });
 
     wordsSectScrollArea.innerHTML = "";
