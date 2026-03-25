@@ -59,7 +59,6 @@ body {
     flex-direction: column;
     justify-content: start;
     font-size: 14px;
-    overflow-y: hidden;
 }
 *::-webkit-scrollbar {
     width: 5px;
