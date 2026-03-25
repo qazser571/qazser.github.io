@@ -846,8 +846,17 @@ body {
 }
 
 @media (max-width: 480px) {
+    body {
+        min-width: none;
+    }
+    #header-inner {
+        min-width: none;
+    }
     #word-set-info {
         display: none;
+    }
+    #contents-inner {
+        min-width: none;
     }
     #contents-header #study-test-btn {
         display: none;
