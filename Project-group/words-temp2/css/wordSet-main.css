@@ -849,16 +849,18 @@ body {
 
 @media (max-width: 480px) {
     body {
-        min-width: none;
+        min-width: none !important;
     }
     #header-inner {
-        min-width: none;
+        width: 100%;
+        min-width: none !important; 
     }
     #word-set-info {
         display: none;
     }
     #contents-inner {
-        min-width: none;
+        width: 100%;
+        min-width: none !important;
     }
     #contents-header #study-test-btn {
         display: none;
