@@ -182,12 +182,19 @@ function createSectionElement(sectionNum, words, searchText) {
     const header = document.createElement("div");
     header.className = "words-sect-header";
 
+    const startId = state.sectionSize
+        ? (sectionNum - 1) * state.sectionSize + 1
+        : 1;
+    const endId = state.sectionSize
+        ? Math.min(sectionNum * state.sectionSize, state.currentSet.words.length)
+        : state.currentSet.words.length;
+
     header.innerHTML = `
         <div class="words-sect-header-inner">
             <div class="words-sect-header-left">
                 <div class="sect-num">${sectionNum}구간</div>
                 <div class="words-range">
-                    ${words[0].id.toString().padStart(4, "0")}-${words[words.length - 1].id.toString().padStart(4, "0")}
+                    ${startId.toString().padStart(4,"0")}-${endId.toString().padStart(4,"0")}
                 </div>
             </div>
             <div class="words-sect-header-right">
@@ -254,20 +261,28 @@ function createWordElement(word, searchText) {
     
 
     unit.querySelector(".whet-know").addEventListener("click", (e) => {
-
         e.stopPropagation();
-
+        
         const original = getSetById(setId);
         const real = original.words.find(w => w.id === word.originalId);
-
+        
         if (!real) return;
-
-        if (real.status === "never") real.status = "dontknow";
-        else if (real.status === "know") real.status = "dontknow";
-        else real.status = "know";
-
+        
+        switch(real.status) {
+            case "never":
+            case "know":
+                real.status = "dontknow";
+                break;
+            case "dontknow":
+                real.status = "know";
+                break;
+            default:
+                real.status = "dontknow";
+                break;
+        }
+    
         updateSet(original);
-
+    
         word.status = real.status;
         updateWordClass(unit, word.status);
     });
@@ -546,7 +561,7 @@ studyTestBtn?.addEventListener("click", () => {
     stpopWrapper.classList.add("show");
     stpopTitle.textContent = "선택하기";
 
-    generateSectionButtons(); // 🔥 열 때마다 갱신
+    generateSectionButtons();
 });
 
 stpopCloseBtn?.addEventListener("click", () => {
@@ -738,12 +753,10 @@ function applyMobileDefaultState() {
         const phon = unit.querySelector(".word-phon");
         const mean = unit.querySelector(".word-mean");
 
-        // 기본 상태: mean 숨김
         spell.classList.remove("hide");
         phon.classList.remove("hide");
         mean.classList.add("hide");
 
-        // 상태 저장
         unit.dataset.meanVisible = "false";
     });
 }
@@ -765,14 +778,12 @@ function setupMobileToggle() {
         const isVisible = unit.dataset.meanVisible === "true";
 
         if (isVisible) {
-            // 👉 원래 상태로
             spell.classList.remove("hide");
             phon.classList.remove("hide");
             mean.classList.add("hide");
 
             unit.dataset.meanVisible = "false";
         } else {
-            // 👉 의미 보기 상태
             spell.classList.add("hide");
             phon.classList.add("hide");
             mean.classList.remove("hide");
