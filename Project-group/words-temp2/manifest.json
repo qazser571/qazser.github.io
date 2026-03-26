@@ -1,6 +1,6 @@
 {
-    "name": "My Word App",
-    "short_name": "WordApp",
+    "name": "Word App",
+    "short_name": "Word App",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
