@@ -481,7 +481,6 @@ input {
     display: flex;
     justify-content: start;
     align-items: center;
-    text-align: end;
     font-size: 13px;
 }
 .wse-gotonum-arrow {
