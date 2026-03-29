@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="../basis/common.css">
+    <link rel="stylesheet" href="../css/words-memorize.css">
+    <script>fetch("../basis/head.html").then(res => res.text()).then(html => {document.head.insertAdjacentHTML("afterbegin", html);});</script>
+    <title>memorize</title>
+</head>
+<body>
+    
+    <div id="header">
+        <div id="memorize-exit-btn"><i class="fa-solid fa-angle-left"></i></div>
+        <div id="memorize-progress">3/12</div>
+        <div id="memorize-menu-btn"><i class="fa-solid fa-bars"></i></div>
+    </div>
+    <div id="container">
+        <div id="prev-btn"><i class="fa-solid fa-chevron-left"></i></div>
+        <div id="next-btn"><i class="fa-solid fa-chevron-right"></i></div>
+
+        <div id="contents">
+
+
+
+            <!-- <div class="card-wrapper">
+                <div class="cardwrap-inner">
+                    <div class="card">
+                        <div class="card-top">
+                            <div class="card-top-inner">
+                                <div class="card-spell">derail</div>
+                                <div class="card-phon">[<span>word.phon</span>]</div>
+                            </div>
+                        </div>
+                        <div class="card-bottom">
+                            <div class="card-means">탈선하다</div>
+                            <div class="card-cover"><span>클릭하여 의미 보기</span></div>
+                        </div>
+                    </div>
+                    <div class="card-btns">
+                        <div class="card-btns-inner">
+                            <div class="idontknow-btn">아직 몰라요</div>
+                            <div class="iknow-btn">이제 알아요</div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            
+
+
+        </div>
+    </div>
+
+    <script type="module" src="../js/words-memorize.js"></script>
+</body>
+</html>
