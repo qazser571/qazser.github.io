@@ -122,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
 
-            /* ⭐ 먼저 파일명 생성 */
             const now = new Date();
 
             const date = [
@@ -131,9 +130,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 String(now.getDate()).padStart(2, "0")
             ].join("-");
 
-            const suggestedName = `wordSets-backup-${date}.json`;
+            const suggestedName = `wordSets-backup.json`;
 
-            /* ⭐ 즉시 picker 실행 */
             const handle = await window.showSaveFilePicker({
                 suggestedName: suggestedName,
                 types: [
@@ -146,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 ]
             });
 
-            /* ⭐ 데이터 생성은 picker 이후 */
             const dataStr = JSON.stringify(state.sets, null, 2);
 
             const writable = await handle.createWritable();
