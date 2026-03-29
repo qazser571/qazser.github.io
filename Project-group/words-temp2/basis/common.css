@@ -1,0 +1,63 @@
+/* 
+font-family: 'Segoe UI', Arial, sans-serif;
+font-family: 'HancomYunGothic740', Arial, sans-serif;
+font-family: 'AstaSans', Arial, sans-serif;
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    border-radius: 0;
+    background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+:root{
+    --main-theme-color: #5756c6;
+    --main-theme-color-darker: #431bd2;
+    --main-theme-color-brighter: #eae4ff;
+}
+
+@font-face {
+    font-family: 'Segoe UI';
+    src: url('../fonts/Segoe\ UI.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'HancomYunGothic740';
+    src: url('../fonts/HancomYunGothic740.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AstaSans';
+    src: url('../fonts/AstaSans-VariableFont.ttf') format('truetype');
+    font-weight: 300 800;
+    font-style: normal;
+}
+
+*::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+*::-webkit-scrollbar-track {
+    background: #ddd;
+    border-radius: 10px;
+}
+*::-webkit-scrollbar-thumb {
+    background: var(--main-theme-color);
+    border-radius: 10px;
+    min-height: 40px;
+    min-width: 40px;
+}
+
+@media (display-mode: standalone),
+       (display-mode: fullscreen) {
+    body {
+        padding-top: env(safe-area-inset-top);
+    }
+}
