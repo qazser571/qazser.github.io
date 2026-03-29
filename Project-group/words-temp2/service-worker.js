@@ -1,11 +1,11 @@
 const CACHE_NAME = "word-app-v1";
 
 const ASSETS = [
-    "/wordSet-list.html",
-    "/css/wordSet-list.css",
-    "/js/wordSet-list.js",
-    "/icons/icon-192.png",
-    "/icons/icon-512.png"
+    "./wordSet-list.html",
+    "./css/wordSet-list.css",
+    "./js/wordSet-list.js",
+    "./icons/icon-192.png",
+    "./icons/icon-512.png"
 ];
 
 self.addEventListener("install", e => {
