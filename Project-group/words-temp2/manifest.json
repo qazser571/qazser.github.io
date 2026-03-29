@@ -1,8 +1,8 @@
 {
     "name": "Word App",
     "short_name": "Word App",
-    "start_url": "/",
-    "scope": "/",
+    "start_url": "/page/wordSet-list.html",
+    "scope": "/page/",
     "display": "fullscreen",
     "background_color": "#ffffff",
     "theme_color": "transparent",
