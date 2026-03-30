@@ -3,7 +3,7 @@
     "short_name": "Word App",
     "start_url": "./page/wordSet-list.html",
     "scope": "./page/",
-    "display": "fullscreen",
+    "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "transparent",
     "icons": [
