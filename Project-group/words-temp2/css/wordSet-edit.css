@@ -781,6 +781,20 @@ input {
         width: 70%;
     }
 }
+@media (max-width: 480px) {
+    #header-inner {
+        width: 100%;
+        min-width: 0; 
+    }
+    #contents-inner {
+        width: 100%;
+        min-width: 0;
+    }
+    #ipa-keyboard-inner {
+        width: 100%;
+        min-width: 0; 
+    }
+}
 
 
 
