@@ -781,6 +781,19 @@ input {
         width: 70%;
     }
 }
+@media (max-width: 900px) {
+    #ipa-keyboard {
+        padding: 12px 20px 16px 20px;
+    }
+    #ipa-keyboard-inner {
+        width: 100%;
+        min-width: 0; 
+    }
+    .ipa-row {
+        gap: 5px;
+        margin-bottom: 5px;
+    }
+}
 @media (max-width: 480px) {
     #header-inner {
         width: 100%;
@@ -789,10 +802,6 @@ input {
     #contents-inner {
         width: 100%;
         min-width: 0;
-    }
-    #ipa-keyboard-inner {
-        width: 100%;
-        min-width: 0; 
     }
 }
 
