@@ -496,7 +496,7 @@ body {
 }
 .word-unit.know > .whet-know {
     border: none;
-    background-color: rgb(140, 138, 255);
+    background-color: var(--main-theme-color-3);
 }
 .word-unit.dontknow > .whet-know {
     border: none;
