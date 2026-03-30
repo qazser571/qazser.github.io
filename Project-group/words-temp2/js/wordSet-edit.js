@@ -69,12 +69,12 @@ let splitClosedByResize = false;
 let deletedSnapshot = null;
 let draftKey = null;
 
-const IPA_KEYS = [
-    ["i", "ɪ", "ɑ", "a", "b", "d", "f", "g", "k"], 
-    ["e", "æ", "ɛ", "j", "l", "m", "n", "p"], 
-    ["ʌ", "ə", "ɔ", "ɜ", "r", "s", "t", "v", "w"], 
-    ["ʊ", "u", "θ", "ð", "z", "ʒ", "ŋ", "ʃ"], 
-    ["ː", "ˈ", "ˌ"]
+const IPA_ROWS = [
+    ["i","ɪ","ɑ","a","b","d","f","g","k","DEL"],
+    ["e","æ","ɛ","j","l","m","n","p","BACK"],
+    ["ʌ","ə","ɔ","ɜ","r","s","t","v","w","ENTER"],
+    ["ʊ","u","θ","ð","z","ʒ","ŋ","ʃ","PASTE"],
+    ["ː","ˈ","ˌ","SPACE","<",">"]
 ];
 
 function clearDeleteUndo() {
@@ -1058,35 +1058,7 @@ document.addEventListener("keydown", e => {
 nameInput.addEventListener("input", saveDraft);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ===================== IPA KEYBOARD ===================== */
-
-const IPA_ROWS = [
-    ["i","ɪ","ɑ","a","b","d","f","g","k","DEL"],
-    ["e","æ","ɛ","j","l","m","n","p","BACK"],
-    ["ʌ","ə","ɔ","ɜ","r","s","t","v","w","ENTER"],
-    ["ʊ","u","θ","ð","z","ʒ","ŋ","ʃ","PASTE"],
-    ["ː","ˈ","ˌ","SPACE","<",">"]
-];
-
-const GAP_X = 10;
 
 const ipaKeyboard = document.querySelector("#ipa-keyboard");
 const ipaKeyboardInner = document.querySelector("#ipa-keyboard-inner");
@@ -1099,7 +1071,11 @@ ipaKeyboard.classList.remove("show");
 buildKeyboard();
 resizeKeyboard();
 
-window.addEventListener("resize", resizeKeyboard);
+const observer = new ResizeObserver(() => {
+    resizeKeyboard();
+});
+
+observer.observe(ipaKeyboardInner);
 
 /* ---------- build ---------- */
 
@@ -1141,29 +1117,29 @@ function buildKeyboard(){
 
 function resizeKeyboard(){
 
-    const innerWidth=ipaKeyboardInner.clientWidth;
+    const row = document.querySelector(".ipa-row");
+    const gap = parseFloat(getComputedStyle(row).columnGap);
 
-    const baseCols=10;
-    const gaps=baseCols-1;
+    const innerWidth = ipaKeyboardInner.clientWidth;
 
-    const keyWidth=
-        (innerWidth-GAP_X*gaps)/baseCols;
+    const baseCols = 10;
+    const gaps = baseCols - 1;
+
+    const keyWidth = (innerWidth - gap * gaps) / baseCols;
 
     document.querySelectorAll(".ipa-key")
     .forEach(btn=>{
 
         const key=btn.dataset.key;
 
-        if(key==="SPACE"){
-            btn.style.width=
-                keyWidth*5+GAP_X*4+"px";
+        if (key==="SPACE") {
+            btn.style.width = keyWidth*5+gap*4+"px";
         }
-        else if(key==="BACK"||key==="PASTE"){
-            btn.style.width=
-                keyWidth*1.5+"px";
+        else if (key==="BACK"||key==="PASTE") {
+            btn.style.width = keyWidth*1.5+"px";
         }
-        else{
-            btn.style.width=keyWidth+"px";
+        else {
+            btn.style.width = keyWidth+"px";
         }
     });
 }
@@ -1172,11 +1148,11 @@ function resizeKeyboard(){
 
 function getLabel(key){
 
-    if(key==="BACK") return "⌫";
-    if(key==="ENTER") return "↵";
-    if(key==="DEL") return "Del";
-    if(key==="PASTE") return "📋";
-    if(key==="SPACE") return "Space";
+    if (key==="BACK") return "⌫";
+    if (key==="ENTER") return "↵";
+    if (key==="DEL") return "Del";
+    if (key==="PASTE") return "📋";
+    if (key==="SPACE") return "Space";
 
     return key;
 }
@@ -1185,7 +1161,7 @@ function getLabel(key){
 
 function pressKey(key){
 
-    if(!activeInput) return;
+    if (!activeInput) return;
 
     activeInput.focus();
 
@@ -1193,15 +1169,14 @@ function pressKey(key){
     const end = activeInput.selectionEnd;
     const len = activeInput.value.length;
 
-    /* ================= DELETE (앞삭제) ================= */
-    if(key==="DEL"){
+    if (key==="DEL"){
 
-        if(start !== end){
+        if (start !== end){
             document.execCommand("insertText", false, "");
             return;
         }
 
-        if(start < len){
+        if (start < len){
             activeInput.setSelectionRange(start, start + 1);
             document.execCommand("insertText", false, "");
         }
@@ -1209,8 +1184,7 @@ function pressKey(key){
         return;
     }
 
-    /* ================= BACKSPACE ================= */
-    if(key==="BACK"){
+    if (key==="BACK"){
 
         if(start !== end){
             document.execCommand("insertText", false, "");
@@ -1225,41 +1199,34 @@ function pressKey(key){
         return;
     }
 
-    /* ================= CURSOR LEFT ================= */
-    if(key==="<"){
+    if (key==="<"){
 
         const pos = Math.max(0, start - 1);
         activeInput.setSelectionRange(pos, pos);
         return;
     }
 
-    /* ================= CURSOR RIGHT ================= */
-    if(key===">"){
+    if (key===">"){
 
         const pos = Math.min(len, start + 1);
         activeInput.setSelectionRange(pos, pos);
         return;
     }
 
-    /* ================= ENTER ================= */
-    if(key==="ENTER"){
+    if (key==="ENTER"){
         activeInput.blur();
         return;
     }
 
-    /* ================= SPACE ================= */
-    if(key==="SPACE"){
+    if (key==="SPACE"){
         document.execCommand("insertText", false, " ");
         return;
     }
 
-    /* ================= PASTE ================= */
-    if(key==="PASTE"){
-        navigator.clipboard
-            .readText()
-            .then(t=>{
-                document.execCommand("insertText", false, t);
-            });
+    if (key==="PASTE"){
+        navigator.clipboard.readText().then(t=>{
+            document.execCommand("insertText", false, t);
+        });
         return;
     }
 
@@ -1271,11 +1238,11 @@ function pressKey(key){
 
 document.addEventListener("focusin",e=>{
 
-    const input=e.target.closest(".word-phon-input");
+    const input = e.target.closest(".word-phon-input");
 
-    if(!input) return;
+    if (!input) return;
 
-    activeInput=input;
+    activeInput = input;
     openKeyboard();
 });
 
@@ -1283,10 +1250,10 @@ document.addEventListener("focusin",e=>{
 
 document.addEventListener("pointerdown",e=>{
 
-    const insideKeyboard=e.target.closest("#ipa-keyboard");
-    const insideInput=e.target.closest(".word-phon-input");
+    const insideKeyboard = e.target.closest("#ipa-keyboard");
+    const insideInput = e.target.closest(".word-phon-input");
 
-    if(insideKeyboard||insideInput) return;
+    if (insideKeyboard || insideInput) return;
 
     closeKeyboard();
 });
@@ -1299,5 +1266,5 @@ function openKeyboard(){
 
 function closeKeyboard(){
     ipaKeyboard.classList.remove("show");
-    activeInput=null;
+    activeInput = null;
 }
