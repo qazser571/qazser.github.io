@@ -422,9 +422,6 @@ body {
     padding: 0px 10px;
     cursor: pointer;
 }
-.words-sect.open .words-sect-header {
-    border-bottom: 1px solid #777;
-}
 .words-sect-header-inner {
     width: 100%;
     height: 100%;
@@ -476,6 +473,7 @@ body {
     display: none;
 }
 .words-sect.open .sect-words-group {
+    border-top: 1px solid #777;
     display: block;
 }
 .word-unit {
