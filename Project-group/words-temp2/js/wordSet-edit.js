@@ -70,6 +70,7 @@ let deletedSnapshot = null;
 let draftKey = null;
 let keyboardOpened = false;
 let userInteracted = false;
+let isScrolling = false;
 
 const IPA_ROWS = [
     ["i","ɪ","ɑ","a","b","d","f","g","k","DEL"],
@@ -1303,20 +1304,22 @@ document.addEventListener("focusin",e=>{
 
 document.addEventListener("pointerdown",e=>{
 
-    const input=e.target.closest(".word-phon-input");
+    if(isScrolling) return;
+
+    const input = e.target.closest(".word-phon-input");
 
     if(input){
-
-        activeInput=input;
+        activeInput = input;
         openKeyboard();
         return;
     }
 
-    const insideKeyboard=e.target.closest("#ipa-keyboard");
+    const insideKeyboard = e.target.closest("#ipa-keyboard");
 
     if(!insideKeyboard){
         closeKeyboard();
     }
+
 });
 
 /* ===================== VISIBILITY FIX ===================== */
@@ -1391,4 +1394,14 @@ document.addEventListener("DOMContentLoaded",()=>{
     document.body.style.paddingBottom="0px";
 
     document.activeElement?.blur();
+});
+
+window.addEventListener("touchmove",()=>{
+    isScrolling = true;
+},{passive:true});
+
+window.addEventListener("touchend",()=>{
+    setTimeout(()=>{
+        isScrolling = false;
+    },50);
 });
