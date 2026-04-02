@@ -72,6 +72,7 @@ let keyboardOpened = false;
 let userInteracted = false;
 let isScrolling = false;
 let scrollTimer = null;
+let touchMoved = false;
 
 const IPA_ROWS = [
     ["i","ɪ","ɑ","a","b","d","f","g","k","DEL"],
@@ -1305,10 +1306,7 @@ document.addEventListener("focusin",e=>{
 
 document.addEventListener("pointerdown",e=>{
 
-    if(isScrolling){
-        e.stopImmediatePropagation();
-        return;
-    }
+    if(touchMoved) return;
 
     const input = e.target.closest(".word-phon-input");
 
@@ -1400,28 +1398,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     document.activeElement?.blur();
 });
 
-/* ===================== SCROLL GUARD ===================== */
+/* ===================== TOUCH MOVE GUARD ===================== */
 
 window.addEventListener("touchstart", () => {
-    isScrolling = false;
+    touchMoved = false;
 }, { passive:true });
 
 window.addEventListener("touchmove", () => {
-
-    isScrolling = true;
-
-    clearTimeout(scrollTimer);
-
-    scrollTimer = setTimeout(() => {
-        isScrolling = false;
-    }, 120);
-
-}, { passive:true });
-
-window.addEventListener("touchend", () => {
-
-    setTimeout(() => {
-        isScrolling = false;
-    }, 120);
-
+    touchMoved = true;
 }, { passive:true });
