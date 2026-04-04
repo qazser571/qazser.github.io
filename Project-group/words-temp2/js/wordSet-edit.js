@@ -1109,6 +1109,7 @@ function buildKeyboard(){
             const btn=document.createElement("button");
             btn.type="button";
             btn.className="ipa-key";
+            btn.addEventListener("dragstart",e=>e.preventDefault());
             btn.dataset.key=key;
             btn.textContent=getLabel(key);
 
@@ -1304,25 +1305,46 @@ document.addEventListener("focusin",e=>{
 
 /* ===================== RECLICK FIX ===================== */
 
-document.addEventListener("pointerdown",e=>{
+let pointerDownStarted = false;
 
-    if(touchMoved) return;
+document.addEventListener("pointerdown", e=>{
+
+    pointerDownStarted = true;
 
     const input = e.target.closest(".word-phon-input");
 
     if(input){
         activeInput = input;
         openKeyboard();
-        return;
-    }
-
-    const insideKeyboard = e.target.closest("#ipa-keyboard");
-
-    if(!insideKeyboard){
-        closeKeyboard();
     }
 
 }, true);
+
+
+document.addEventListener("pointerup", e=>{
+
+    if(!pointerDownStarted) return;
+    pointerDownStarted = false;
+
+    if(touchMoved) return;
+
+    const input = e.target.closest(".word-phon-input");
+    const insideKeyboard = e.target.closest("#ipa-keyboard");
+
+    if(input) return;
+    if(insideKeyboard) return;
+
+    closeKeyboard();
+
+}, true);
+
+/* ===================== MOBILE LONG PRESS BLOCK ===================== */
+
+document.addEventListener("contextmenu", e=>{
+    if(e.target.closest("#ipa-keyboard")){
+        e.preventDefault();
+    }
+});
 
 /* ===================== VISIBILITY FIX ===================== */
 
