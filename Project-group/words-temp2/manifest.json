@@ -1,8 +1,8 @@
 {
     "name": "Word App",
     "short_name": "Word App",
-    "start_url": "/Project-group/words-temp2/app/index.html",
-    "scope": "/Project-group/words-temp2/app/",
+    "start_url": "./app/index.html",
+    "scope": "./app/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "transparent",
