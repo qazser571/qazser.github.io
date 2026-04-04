@@ -40,6 +40,23 @@ self.addEventListener("fetch", e => {
 
     if (e.request.method !== "GET") return;
 
+    const url = new URL(e.request.url);
+
+    const isAppRequest = url.searchParams.get("mode") === "app";
+
+    /* =========================
+        WEB MODE → 캐시 사용 금지
+    ========================= */
+
+    if (!isAppRequest && e.request.destination === "document") {
+        e.respondWith(fetch(e.request));
+        return;
+    }
+
+    /* =========================
+        APP MODE → 캐시 사용
+    ========================= */
+
     e.respondWith(
         fetch(e.request)
             .then(res => {
