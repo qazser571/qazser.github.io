@@ -17,8 +17,8 @@ if ("serviceWorker" in navigator) {
     } 
     else {
         if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("/Project-group/words-temp2/service-worker.js", {
-                scope: "/Project-group/words-temp2/app/"
+            navigator.serviceWorker.register("../service-worker.js", {
+                scope: "../app/"
             });
         }
     }
