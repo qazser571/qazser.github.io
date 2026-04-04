@@ -2,7 +2,7 @@
     "name": "Word App",
     "short_name": "Word App",
     "start_url": "./?mode=app",
-    "scope": "./",
+    "scope": "./?mode=app",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "transparent",
