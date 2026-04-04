@@ -9,10 +9,10 @@ self.addEventListener("install", e => {
     e.waitUntil(
         caches.open(CACHE_NAME).then(cache =>
             cache.addAll([
-                "/Project-group/words-temp2/",
-                "/Project-group/words-temp2/index.html",
-                "/Project-group/words-temp2/app/",
-                "/Project-group/words-temp2/page/wordSet-list.html"
+                "./",
+                "./index.html",
+                "./app/",
+                "./page/wordSet-list.html"
             ])
         )
     );
