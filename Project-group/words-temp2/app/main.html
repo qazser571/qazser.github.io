@@ -1,26 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="manifest" href="../manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Word App</title>
+</head>
+
 <body>
 
-<div id="app"></div>
-
-<script type="module">
-    fetch("../page/wordSet-list.html?mode=app")
-        .then(r => r.text())
-        .then(html => {
-            document.getElementById("app").innerHTML = html;
-        });
-    app.innerHTML = html;
-    app.querySelectorAll("script").forEach(oldScript => {
-
-        const newScript = document.createElement("script");
-
-        if (oldScript.src) {
-            newScript.src = oldScript.src;
-        } else {
-            newScript.textContent = oldScript.textContent;
-        }
-
-        document.body.appendChild(newScript);
-    });
-</script>
+    <iframe src="../page/wordSet-list.html?mode=app" style="position:fixed; inset:0; border:none; width:100%; height:100%;"></iframe>
 
 </body>
+</html>
