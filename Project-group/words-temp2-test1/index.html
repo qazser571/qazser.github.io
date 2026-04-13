@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Word App</title>
+</head>
+<body>
+
+<script>
+
+const isStandalone =
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
+
+/* 앱 → app mode */
+if (isStandalone) {
+    location.replace("./page/wordSet-list.html?mode=app");
+}
+/* 웹 → normal */
+else {
+    location.replace("./page/wordSet-list.html");
+}
+
+</script>
+
+</body>
+</html>
