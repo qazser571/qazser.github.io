@@ -12,16 +12,15 @@
 
 <script>
 
-const isStandalone =
-    window.matchMedia("(display-mode: standalone)").matches ||
-    window.navigator.standalone === true;
+const params = new URLSearchParams(location.search);
+const launchedFromPWA =
+    params.get("source") === "pwa";
 
-/* 앱 → app mode */
-if (isStandalone) {
+if (launchedFromPWA) {
+    /* 앱 실행 */
     location.replace("./page/wordSet-list.html?mode=app");
-}
-/* 웹 → normal */
-else {
+} else {
+    /* 웹 접속 */
     location.replace("./page/wordSet-list.html");
 }
 
