@@ -1,7 +1,7 @@
 {
     "name": "Word App",
     "short_name": "Word App",
-    "start_url": "./index.html",
+    "start_url": "./index.html?source=pwa",
     "scope": "./",
     "display": "standalone",
     "background_color": "#ffffff",
