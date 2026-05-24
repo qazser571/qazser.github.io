@@ -50,6 +50,83 @@ const setupLeft = document.getElementById("setup-tools-left");
 const saveUIStateDebounced = debounce(saveUIState, 120);
 wordsSectScrollArea?.addEventListener("scroll", saveUIStateDebounced);
 
+const wordsListDownBtn = document.getElementById("words-list-down-btn");
+
+wordsListDownBtn?.addEventListener("click", async () => {
+
+    if (!state.currentSet) return;
+
+    const originalSet = getSetById(setId);
+
+    if (!originalSet || !originalSet.words?.length) {
+        alert("저장할 단어가 없습니다.");
+        return;
+    }
+
+    const lines = originalSet.words.map(word => {
+        return `${word.spelling}<$#?0!#$>${word.meaning}`;
+    });
+
+    const text = lines.join("\n");
+
+    try {
+
+        /* ===== File System Access API 지원 ===== */
+        if ("showSaveFilePicker" in window) {
+
+            const handle = await window.showSaveFilePicker({
+                suggestedName: `${originalSet.name}.txt`,
+                types: [
+                    {
+                        description: "Text File",
+                        accept: {
+                            "text/plain": [".txt"]
+                        }
+                    }
+                ]
+            });
+
+            const writable = await handle.createWritable();
+
+            await writable.write(text);
+            await writable.close();
+
+            alert("단어 리스트가 저장되었습니다.");
+
+        } else {
+
+            /* ===== 미지원 브라우저 fallback ===== */
+
+            const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+
+            a.href = url;
+            a.download = `${originalSet.name}.txt`;
+
+            document.body.appendChild(a);
+
+            a.click();
+
+            a.remove();
+
+            URL.revokeObjectURL(url);
+
+            alert("브라우저 제한으로 기본 다운로드 방식으로 저장되었습니다.");
+        }
+
+    } catch (err) {
+
+        console.error(err);
+
+        if (err.name !== "AbortError") {
+            alert("파일 저장 중 오류가 발생했습니다.");
+        }
+    }
+});
+
 /* =============================
     LOAD DATA
 ============================= */
