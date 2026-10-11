@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <title>Vocabulary Study</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <div class="header">
+            <button class="menu-button" id="menuButton" type="button" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="progress-text" id="progressText">0 / 0</div>
+            <div class="timer-text" id="timerText">0</div>
+        </div>
+
+        <div class="timer-bar-area">
+            <div class="timer-bar" id="timerBar"></div>
+        </div>
+
+        <div class="study-area">
+            <div class="word-card" id="wordCard">
+                <div class="initial-message" id="initialMessage">
+                    암기 상태가 아닙니다
+                </div>
+
+                <div class="study-content hidden" id="studyContent">
+                    <div class="word-section" id="wordSection">
+                        <span class="word-text" id="wordText"></span>
+                    </div>
+
+                    <div class="meaning-section" id="meaningSection"></div>
+                </div>
+
+                <div class="result-content hidden" id="resultContent"></div>
+            </div>
+
+            <div class="answer-buttons">
+                <button class="answer-button know-button" id="knowButton" type="button" disabled>O</button>
+                <button class="answer-button dont-know-button" id="dontKnowButton" type="button" disabled>X</button>
+            </div>
+        </div>
+
+        <div class="menu-overlay hidden" id="menuOverlay">
+            <div class="menu-panel">
+                <div class="menu-header">
+                    <div class="menu-title">Data</div>
+
+                    <div class="menu-header-actions">
+                        <button class="data-button" id="loadButton" type="button">Load</button>
+                        <button class="data-button" id="saveButton" type="button">Save</button>
+                    </div>
+
+                    <button class="close-button" id="closeMenuButton" type="button" aria-label="메뉴 닫기">×</button>
+                </div>
+
+                <input type="file" id="fileInput" accept=".txt,text/plain" class="hidden-file-input">
+
+                <div class="setting-row section-setting-row">
+                    <div class="section-setting-left">
+                        <div class="setting-label">구간 분리 :</div>
+                        <input type="number" id="sectionSizeInput" class="setting-input section-size-input" min="1" step="1" value="80">
+                    </div>
+
+                    <div class="dark-mode-setting">
+                        <div class="setting-label">다크모드</div>
+                        <input type="checkbox" id="darkModeCheckbox" class="custom-checkbox">
+                    </div>
+                </div>
+
+                <div class="setting-divider"></div>
+
+                <div class="menu-main-area">
+                    <div class="section-area">
+                        <div class="section-list" id="sectionList"></div>
+                        <div class="emptytext-area" id="emptytextArea"></div>
+                        <button class="select-all-button" id="selectAllButton" type="button">
+                            전체선택
+                        </button>
+                    </div>
+
+                    <div class="study-options">
+                        <div class="option-box">
+                            <div class="option-title-row">
+                                <span class="option-title">Timer</span>
+
+                                <input type="checkbox" id="timerEnabledCheckbox" class="custom-checkbox" checked>
+                            </div>
+
+                            <div class="timer-setting-row">
+                                <input type="number" id="timerInput" class="timer-input" min="1" step="1" value="6">
+                                <span class="seconds-text">초</span>
+                            </div>
+
+                            <div class="supple-row">
+                                <span class="option-title">추가 시간</span>
+
+                                <input type="checkbox" id="meaningCountTimeCheckbox" class="custom-checkbox" checked>
+                            </div>
+
+                            <div class="timer-setting-row">
+                                <input type="number" id="meaningCountTimeInput" class="timer-input" min="0.5" step="0.5" value="1.5">
+                                <span class="seconds-text">초 / 추가 뜻 1개</span>
+                            </div>
+                        </div>
+
+                        <div class="option-box exclude-option-box">
+                            <div class="shade-row">
+                                <span class="option-title">뜻 가리기</span>
+
+                                <input type="checkbox" id="meaningHiddenCheckbox" class="custom-checkbox" checked>
+                            </div>
+                        </div>
+
+                        <div class="option-box exclude-option-box">
+                            <div class="exclude-row">
+                                <span class="option-title">아는 단어 제외</span>
+
+                                <input type="checkbox" id="excludeKnownCheckbox" class="custom-checkbox">
+                            </div>
+                        </div>
+
+                        <button class="start-button" id="startButton" type="button">
+                            암기 시작
+                        </button>
+
+                        <div class="start-message" id="startMessage"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
