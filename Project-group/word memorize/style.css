@@ -567,6 +567,7 @@ input:focus-visible {
 
 .emptytext-area {
     width: 100%;
+    padding: 10px 30px;
 }
 
 .section-empty-message{
