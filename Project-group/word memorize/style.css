@@ -1076,3 +1076,9 @@ input:focus-visible {
         font-size: 19px;
     }
 }
+
+@media (max-width: 450px) {
+    .section-list {
+        max-height: 250px;
+    }
+}
