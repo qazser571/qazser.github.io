@@ -450,6 +450,7 @@ function getSections() {
 function renderSections() {
     const sections = getSections();
     elements.sectionList.innerHTML = "";
+    elements.emptytextArea.innerHTML = "";
 
     if (sections.length === 0) {
         const emptyMessage = document.createElement("div");
