@@ -415,6 +415,7 @@ input:focus-visible {
     border-radius: 14px;
     background: #ffffff;
     box-shadow: 0 25px 70px rgba(15, 23, 42, 0.18);
+    box-sizing: border-box;
 }
 
 .menu-header {
