@@ -561,7 +561,7 @@ input:focus-visible {
     padding: 0 30px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
-    gap: 28px 20px;
+    gap: 28px;
     align-content: start;
 }
 
@@ -1038,7 +1038,7 @@ input:focus-visible {
     }
 
     .section-list {
-        gap: 20px 10px;
+        gap: 20px;
     }
 
     .result-content {
