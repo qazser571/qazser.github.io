@@ -551,15 +551,16 @@ input:focus-visible {
 .section-area {
     position: relative;
     min-height: 430px;
-    padding: 28px 30px 55px;
+    padding: 28px 0 55px;
     border: 1px solid #cbd5e1;
     border-radius: 8px;
     background: #ffffff;
 }
 
 .section-list {
+    padding: 0 30px;
     display: grid;
-    grid-template-columns: repeat(8, minmax(45px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
     gap: 28px 20px;
     align-content: start;
 }
@@ -935,10 +936,6 @@ input:focus-visible {
     .study-options {
         width: 100%;
     }
-
-    .section-list {
-        grid-template-columns: repeat(6, minmax(45px, 1fr));
-    }
 }
 
 @media (max-width: 700px) {
@@ -1041,7 +1038,6 @@ input:focus-visible {
     }
 
     .section-list {
-        grid-template-columns: repeat(4, minmax(40px, 1fr));
         gap: 20px 10px;
     }
 
@@ -1080,6 +1076,8 @@ input:focus-visible {
 
 @media (max-width: 450px) {
     .section-list {
-        max-height: 250px;
+        max-height: 240px;
+        overflow-y: auto;
+        gap: 8px;
     }
 }
