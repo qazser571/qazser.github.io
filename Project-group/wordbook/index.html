@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영어 단어장</title>
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <div class="app-container" id="appContainer">
+
+        <!-- 메인 화면 -->
+        <main class="main-screen" id="mainScreen">
+
+            <header class="header">
+                <h1>영어 단어장</h1>
+                <p>나만의 단어를 관리하세요.</p>
+            </header>
+
+            <section class="main-controls">
+
+                <div class="word-info">
+                    <span>저장된 단어</span>
+                    <strong id="wordCount">0</strong>
+                    <span>개</span>
+                </div>
+
+                <div class="button-container">
+
+                    <button id="loadButton" class="main-button">
+                        <span class="button-icon">＋</span>
+                        <span>단어 불러오기</span>
+                    </button>
+
+                    <button id="viewButton" class="main-button">
+                        <span class="button-icon">☰</span>
+                        <span>단어 보기</span>
+                    </button>
+
+                </div>
+
+                <p class="status-message" id="statusMessage">
+                    TXT 파일을 불러와 단어장을 만들어 보세요.
+                </p>
+
+                <input
+                    type="file"
+                    id="fileInput"
+                    accept=".txt,text/plain"
+                    hidden
+                >
+
+            </section>
+
+        </main>
+
+
+        <!-- 단어 보기 팝업 -->
+        <section class="word-popup" id="wordPopup">
+
+            <header class="popup-header">
+
+                <div class="popup-title">
+                    <h2>단어 목록</h2>
+                    <span id="popupWordCount">0개</span>
+                </div>
+
+                <button
+                    id="closeButton"
+                    class="close-button"
+                    aria-label="단어장 닫기"
+                >
+                    ×
+                </button>
+
+            </header>
+
+            <div class="word-list" id="wordList">
+
+                <!-- JavaScript에서 단어 생성 -->
+
+            </div>
+
+            <footer class="popup-footer">
+                <button id="popupCloseButton" class="popup-close-button">
+                    닫기
+                </button>
+            </footer>
+
+        </section>
+
+    </div>
+
+    <script src="./script.js"></script>
+
+</body>
+</html>
