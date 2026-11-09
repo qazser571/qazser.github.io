@@ -5,6 +5,7 @@ const unitsList = [
     ["words-임시2", "words-temp2/index.html"],
     ["words-임시2-test1", "words-temp2-test1/index.html"],
     ["WORD암기", "word memorize/index.html"],
+    ["wordbook", "wordbook/index.html"],
     ["스케줄", "schedule/main.html"],
     ["코돈추론", "codon/main.html"],
     ["코돈 test", "tempt/test.html"],
