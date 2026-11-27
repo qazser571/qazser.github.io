@@ -9,6 +9,7 @@ const unitsList = [
     ["스케줄", "schedule/main.html"],
     ["코돈추론", "codon/main.html"],
     ["코돈 test", "tempt/test.html"],
+    ["동영상 컷팅", "video cutting/index.html"],
     ["TXT 에디터", "txt-editer/txt-editer.html"],
     ["특수문자 DB", "character-DB/character-DB.html"],
     ["일괄 줄바꿈 도구", "change line/change line.html"],
