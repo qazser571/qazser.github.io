@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동영상 구간 편집기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 최초 동영상 선택 화면 -->
+    <main id="fileScreen" class="file-screen">
+        <div class="file-card">
+            <div class="file-icon">▶</div>
+            <h1>동영상 구간 편집기</h1>
+            <p>편집할 동영상을 선택하세요.</p>
+
+            <label for="videoFile" class="file-select-button">
+                동영상 파일 선택
+            </label>
+            <input id="videoFile" type="file" accept="video/*">
+
+            <p id="fileError" class="error-message"></p>
+        </div>
+    </main>
+
+    <!-- 편집 화면 -->
+    <main id="editorScreen" class="app hidden">
+        <header class="app-header">
+            <div>
+                <p id="fileInfo" class="muted"></p>
+            </div>
+        </header>
+
+        <div class="editor-layout">
+            <!-- 왼쪽: 동영상 및 타임라인 -->
+            <section class="main-video-column">
+                <section class="panel video-panel">
+                    <div class="video-container">
+                        <video id="video" playsinline preload="auto"></video>
+                    </div>
+
+                    <div class="timeline-area">
+                        <div class="timeline-information">
+                            <span id="timeDisplay">00:00 / 00:00</span>
+                            <span id="statusMessage" class="muted">동영상 준비 중</span>
+                        </div>
+
+                        <div id="timeline" class="timeline">
+                            <div class="timeline-track"></div>
+                            <div id="cutLayer" class="cut-layer"></div>
+                            <div id="playhead" class="playhead" title="재생 위치 포커스"></div>
+                        </div>
+
+                        <div class="timeline-controls">
+                            <button id="playButton" class="play-button">재생</button>
+                            <button id="addCutButton" class="primary">
+                                현재 위치에 컷팅 지점 추가
+                            </button>
+                        </div>
+
+                        <p class="timeline-help">
+                            타임라인 클릭: 재생 위치 이동 · 흰색 선 클릭: 재생 위치 포커스
+                        </p>
+                    </div>
+                </section>
+
+                <div class="keyboard-help">
+                    <span>Space: 재생 / 정지</span>
+                    <span>방향키: 1초 이동</span>
+                    <span>Shift + 방향키: 0.1초 이동</span>
+                    <span>Ctrl + Shift + 방향키: 1프레임 이동</span>
+                    <span>Delete: 선택한 컷팅 지점 삭제</span>
+                </div>
+            </section>
+
+            <!-- 오른쪽: 편집 도구 -->
+            <aside class="editor-sidebar">
+                <section class="panel sidebar-panel">
+                    <h2>편집 도구</h2>
+
+                    <div class="sidebar-buttons">
+                        <button id="resetButton">편집 초기화</button>
+                        <button id="closeButton" class="danger">
+                            동영상 닫기
+                        </button>
+                    </div>
+                </section>
+
+                <section class="panel sidebar-panel cut-edit-panel">
+                    <h2>컷팅 지점 편집</h2>
+                    <p class="muted sidebar-description">
+                        컷팅 지점을 선택하고 시간을 수정하세요.
+                    </p>
+
+                    <div class="cut-selection-box">
+                        <label for="cutTimeInput">컷팅 지점 시간</label>
+
+                        <input
+                            id="cutTimeInput"
+                            type="text"
+                            inputmode="decimal"
+                            placeholder="예: 06:53"
+                            autocomplete="off"
+                        >
+
+                        <p class="input-description">
+                            분:초 형식으로 입력하세요.
+                        </p>
+
+                        <button id="applyCutTimeButton" class="primary block-button">
+                            시간 적용
+                        </button>
+
+                        <button id="deleteCutButton" class="danger block-button">
+                            선택 지점 삭제
+                        </button>
+                    </div>
+
+                    <div id="cutSelectionInfo" class="muted cut-selection-info">
+                        선택된 컷팅 지점 없음
+                    </div>
+
+                    <div class="cut-list-heading">컷팅 지점 목록</div>
+                    <div id="cutList" class="cut-list"></div>
+                </section>
+
+                <section class="panel sidebar-panel next-panel">
+                    <h2>편집 완료</h2>
+                    <p class="muted">
+                        컷팅 지점 설정이 끝났다면 다음 단계로 이동하세요.
+                    </p>
+
+                    <button id="nextStepButton" class="primary next-button">
+                        다음 단계 →
+                    </button>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <!-- 구간 선택 및 저장 팝업 -->
+    <div id="selectionModal" class="modal hidden">
+        <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <header class="modal-header">
+                <div>
+                    <h2 id="modalTitle">구간 선택 및 동영상 저장</h2>
+                    <p class="muted">저장할 구간을 선택하고 순서를 지정하세요.</p>
+                </div>
+
+                <button id="closeModalButton" class="modal-close-button" aria-label="팝업 닫기">
+                    ✕
+                </button>
+            </header>
+
+            <div class="modal-content">
+                <section class="selection-section">
+                    <div class="section-heading">
+                        <h3>구간 선택</h3>
+
+                        <div class="button-group">
+                            <button id="selectAllButton">전체 선택</button>
+                            <button id="deselectAllButton">전체 해제</button>
+                        </div>
+                    </div>
+
+                    <p class="help-text">
+                        구간을 클릭하면 선택됩니다. 선택한 순서대로 번호가 부여되며,
+                        저장된 동영상도 해당 순서대로 연결됩니다.
+                    </p>
+
+                    <div class="modal-timeline-wrapper">
+                        <div class="modal-time-information">
+                            <span id="modalTimeDisplay">00:00 / 00:00</span>
+                            <span id="selectionInfo" class="muted">0개 구간 선택</span>
+                        </div>
+
+                        <div id="modalTimeline" class="modal-timeline">
+                            <div class="modal-timeline-track"></div>
+                            <div id="modalSegmentLayer" class="modal-segment-layer"></div>
+                            <div id="modalPlayhead" class="modal-playhead"></div>
+                        </div>
+
+                        <div id="segmentList" class="segment-list"></div>
+                    </div>
+
+                    <div class="preview-controls">
+                        <button id="previewButton">선택 구간 미리보기</button>
+                        <button id="stopPreviewButton">미리보기 중지</button>
+                    </div>
+                </section>
+
+                <section class="export-section">
+                    <div class="section-heading">
+                        <h3>동영상 저장</h3>
+                        <span id="selectedCount" class="muted">선택된 구간 없음</span>
+                    </div>
+
+                    <p id="exportStatus" class="muted">
+                        저장할 구간을 선택하세요.
+                    </p>
+
+                    <progress id="exportProgress" value="0" max="100"></progress>
+
+                    <p id="ffmpegLog" class="ffmpeg-log"></p>
+
+                    <button id="exportButton" class="primary export-button">
+                        선택 구간 연결 및 저장
+                    </button>
+
+                    <p class="warning">
+                        FFmpeg.wasm을 사용합니다. 동영상 전체를 메모리에 적재하므로
+                        파일 크기와 브라우저 환경에 따라 대용량 동영상 처리가 제한될 수 있습니다.
+                        스트림 복사 방식은 키프레임 위치에 따라 컷팅 지점이 정확하지 않을 수 있습니다.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
